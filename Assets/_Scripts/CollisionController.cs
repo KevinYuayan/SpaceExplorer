@@ -14,6 +14,10 @@ public class CollisionController : MonoBehaviour
 {
     public GameController gameController;
     // Start is called before the first frame update
+
+    //Private instance variables
+    private AudioSource _ding;
+    private AudioSource _explosion;
     void Start()
     {
         GameObject gameControllerObject = GameObject.Find("GameController");
@@ -22,6 +26,10 @@ public class CollisionController : MonoBehaviour
             Debug.Log("Can't find Game Controller");
         }
         gameController = gameControllerObject.GetComponent<GameController>();
+        _ding = gameController.audioSources[(int)SoundClip.DING];
+        _explosion = gameController.audioSources[(int)SoundClip.EXPLOSION];
+        _ding.volume = 0.5f;
+        _explosion.volume = 0.5f;
     }
 
     // Update is called once per frame
@@ -41,19 +49,21 @@ public class CollisionController : MonoBehaviour
                     CollidableObject player = this.gameObject.GetComponent<CollidableObject>();
                     if (!player.HasCollided)
                     {
+                        _explosion.Play();
                         CollidableObject enemy = other.gameObject.GetComponent<CollidableObject>();
                         gameController.Lives -= 1;
                         enemy.HasCollided = true;
                         player.HasCollided = true;
                     }
                     break;
-                // Handles Player and Orb collision
-                case "Orb":
-                    CollidableObject orb = other.gameObject.GetComponent<CollidableObject>();
-                    if (!orb.HasCollided)
+                // Handles Player and Asteroid collision
+                case "Asteroid":
+                    AsteroidController asteroid = other.gameObject.GetComponent<AsteroidController>();
+                    if (!asteroid.HasCollided)
                     {
+                        _ding.Play();
                         gameController.Score += 100;
-                        orb.HasCollided = true;
+                        asteroid.HasCollided = true;
                     }
                     break;
             }
@@ -65,6 +75,7 @@ public class CollisionController : MonoBehaviour
                 // Handles Bullet and Enemy collision
                 case "Enemy_1":
                 case "Enemy_2":
+                    _explosion.Play();
                     CollidableObject enemy = other.gameObject.GetComponent<CollidableObject>();
                     CollidableObject bullet = this.gameObject.GetComponent<CollidableObject>();
                     enemy.Reset();

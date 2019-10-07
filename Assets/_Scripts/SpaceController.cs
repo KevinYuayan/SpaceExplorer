@@ -40,7 +40,7 @@ public class SpaceController : MonoBehaviour
         transform.position = currentPosition - newPosition;
     }
     /// <summary>
-    /// This method resets the ocean to the resetPosition
+    /// This method resets the space background to the resetPosition
     /// </summary>
     void Reset()
     {
@@ -48,7 +48,7 @@ public class SpaceController : MonoBehaviour
     }
 
     /// <summary>
-    /// This method checks if the ocean reaches the lower boundary
+    /// This method checks if the space background reaches the lower boundary
     /// and then it Resets it
     /// </summary>
     void CheckBounds()

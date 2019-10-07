@@ -455,11 +455,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
-    - target: {fileID: 6258031004218500822, guid: 0cd6714592b08874d95701663d2115fa,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
         type: 3}
       propertyPath: livesLabel
@@ -472,29 +467,14 @@ PrefabInstance:
       objectReference: {fileID: 1647725885}
     - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
         type: 3}
-      propertyPath: startLabel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
-        type: 3}
-      propertyPath: startButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
-        type: 3}
-      propertyPath: endLabel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
-        type: 3}
-      propertyPath: restartButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
-        type: 3}
       propertyPath: highScoreLabel
       value: 
       objectReference: {fileID: 8537358246247549070}
+    - target: {fileID: 6258031004218500820, guid: 0cd6714592b08874d95701663d2115fa,
+        type: 3}
+      propertyPath: endScoreLabel
+      value: 
+      objectReference: {fileID: 8537358246247549071}
     - target: {fileID: 6258031004218500823, guid: 0cd6714592b08874d95701663d2115fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -563,11 +543,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6485742442709593006, guid: 63211e44b836615489776d2977dd9452,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6485742442709592994, guid: 63211e44b836615489776d2977dd9452,
         type: 3}
@@ -692,6 +667,18 @@ PrefabInstance:
 --- !u!114 &8537358246247549070 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1384263817, guid: 63211e44b836615489776d2977dd9452,
+    type: 3}
+  m_PrefabInstance: {fileID: 8537358246247549069}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8537358246247549071 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1275380023, guid: 63211e44b836615489776d2977dd9452,
     type: 3}
   m_PrefabInstance: {fileID: 8537358246247549069}
   m_PrefabAsset: {fileID: 0}

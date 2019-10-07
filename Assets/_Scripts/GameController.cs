@@ -16,13 +16,18 @@ public class GameController : MonoBehaviour
 {
     [Header("Scene Game Objects")]
     public GameObject enemy_1;
-    public GameObject enemy_2, orb;
+    public GameObject enemy_2, asteroid;
 
     public Text livesLabel;
     public Text scoreLabel;
     public Text highScoreLabel;
+    public Text endScoreLabel;
 
     public GameObject highScore;
+
+    [Header("Audio Sources")]
+    public SoundClip activeSoundClip;
+    public AudioSource[] audioSources;
 
     [Header("UI Control")]
     public GameObject startLabel;
@@ -118,11 +123,11 @@ public class GameController : MonoBehaviour
                     NumberOfEnemies_2 += 1;
                 }
             }
-
-            if (highScore.GetComponent<HighScore>().score < _score)
+            if (highScore.GetComponent<Score>().highScore < _score)
             {
-                highScore.GetComponent<HighScore>().score = _score;
+                highScore.GetComponent<Score>().highScore = _score;
             }
+            highScore.GetComponent<Score>().score = _score;
             scoreLabel.text = "Score: " + _score.ToString();
         }
     }
@@ -154,33 +159,48 @@ public class GameController : MonoBehaviour
                 scoreLabel.enabled = false;
                 livesLabel.enabled = false;
                 highScoreLabel.enabled = false;
+                endScoreLabel.enabled = false;
                 endLabel.SetActive(false);
                 restartButton.SetActive(false);
+                activeSoundClip = SoundClip.BG_MUSIC;
                 break;
             case "Main":
                 highScoreLabel.enabled = false;
+                endScoreLabel.enabled = false;
                 startLabel.SetActive(false);
                 startButton.SetActive(false);
                 endLabel.SetActive(false);
                 restartButton.SetActive(false);
+                restartButton.SetActive(false);
+                activeSoundClip = SoundClip.BG_MUSIC;
                 break;
             case "End":
                 scoreLabel.enabled = false;
                 livesLabel.enabled = false;
                 startLabel.SetActive(false);
                 startButton.SetActive(false);
-                highScoreLabel.text = "High Score: " + highScore.GetComponent<HighScore>().score;
+                activeSoundClip = SoundClip.GAME_OVER_MUSIC;
+                highScoreLabel.text = "High Score: " + highScore.GetComponent<Score>().highScore;
+                endScoreLabel.text = "Score: " + highScore.GetComponent<Score>().score;
                 break;
         }
 
         Lives = 5;
         Score = 0;
 
+        if ((activeSoundClip != SoundClip.NONE) && (activeSoundClip != SoundClip.NUM_OF_CLIPS))
+        {
+            AudioSource activeSoundSource = audioSources[(int)activeSoundClip];
+            activeSoundSource.playOnAwake = true;
+            activeSoundSource.loop = true;
+            activeSoundSource.volume = 0.5f;
+            activeSoundSource.Play();
+        }
         // creates an empty container (list) of type GameObject
         _enemies_1 = new List<GameObject>();
         _enemies_2 = new List<GameObject>();
 
-        Instantiate(orb);
+        Instantiate(asteroid);
     }
 
     // Update is called once per frame

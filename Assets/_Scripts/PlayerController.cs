@@ -14,16 +14,21 @@ public class PlayerController : CollidableObject
 {
     public Speed speed;
     public Boundary boundary;
+    private float _fireRate;
+    private float _myTime;
 
     public GameController gameController;
 
     // private instance variables
-    private int _invincibilityTime = 2;
-    private float _invincibleOpacity = 0.5f;
+    private int _invincibilityTime;
+    private float _invincibleOpacity;
 
     // Start is called before the first frame update
     void Start()
     {
+        _invincibilityTime = 1;
+        _invincibleOpacity = 0.5f;
+        _fireRate = 1f;
     }
 
     // Update is called once per frame
@@ -60,6 +65,27 @@ public class PlayerController : CollidableObject
         Debug.Log("before Invincible turned off");
         HasCollided = false;
         this.gameObject.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
+    /// <summary>
+    /// Shoots a bullet from the bullet manager
+    /// </summary>
+    /// <param name="tag">Bullet</param>
+    public void Shoot(string tag, BulletManager bulletManager)
+    {
+        _myTime += Time.deltaTime;
+        if (_myTime > _fireRate && Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log("Fire Bullet");
+            GameObject objectToSpawn = bulletManager.poolDictionary[tag].Dequeue();
+            BulletController bullet = objectToSpawn.GetComponent<BulletController>();
+
+            bullet.IsEnemyBullet = false;
+            objectToSpawn.SetActive(true);
+
+            bulletManager.poolDictionary[tag].Enqueue(objectToSpawn);
+            _myTime = 0.0f;
+        }
     }
 
     /// <summary>

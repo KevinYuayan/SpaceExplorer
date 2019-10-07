@@ -5,10 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Space
-  - Orb
   - Enemy_2
   - Enemy_1
   - Bullet
+  - Asteroid
   layers:
   - Default
   - TransparentFX

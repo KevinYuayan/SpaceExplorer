@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// File Name: BulletManager.cs
@@ -13,7 +14,8 @@ using UnityEngine;
 public class BulletManager : MonoBehaviour
 {
     // Iterator used so Shoot is only called once every second at most
-    private int _nextShot;
+    private float _myTime;
+    private PlayerController player;
 
     [System.Serializable]
     public class Pool
@@ -41,35 +43,20 @@ public class BulletManager : MonoBehaviour
             }
             poolDictionary.Add(pool.tag, objectPool);
         }
-        _nextShot = (int)Time.time;
-    }
-
-    /// <summary>
-    /// Activates the next bullet in queue while space is held
-    /// </summary>
-    /// <param name="tag">Bullet</param>
-    public void Shoot(string tag)
-    {
-        if(Input.GetKey(KeyCode.Space))
+        if(GameObject.Find("Player") != null)
         {
-            Debug.Log("Fire Bullet");
-            GameObject objectToSpawn = poolDictionary[tag].Dequeue();
-            BulletController bullet = objectToSpawn.GetComponent<BulletController>();
-            
-            bullet.IsEnemyBullet = false;
-            objectToSpawn.SetActive(true);
-
-            poolDictionary[tag].Enqueue(objectToSpawn);
+            player = GameObject.Find("Player").GetComponent<PlayerController>();
         }
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Time.time >= _nextShot)
+        if(player != null)
         {
-            Shoot("Bullet");
-            _nextShot += 1;
+            player.Shoot("Bullet", this);
         }
     }
 }
